@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Economica&display=swap');
+
+body{
+    font-family: 'Economica', sans-serif;
+    font-size: 16px;
+    color: black;
+}
+
+.header{
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.container-one{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator{
+    border-style: double;
+    border-color: black;
+    border-radius: 8px;
+    width: 500px;
+    height: 600px;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: stretch;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+button{
+    border-color: black;
+    border-radius: 8px;
+    border-width: thin;
+    background-color: white;
+}
+
+#numbers-container{
+    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons {
+    width: 80px;
+    height: 80px;
+    border-color: black;
+    color: black;
+    font-size: 16px;
+}
+
+
+#display-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    width: 500px;
+    height: 120px;
+}
+
+#display-screen{
+    width: 425px;
+    height: 100px;
+    border-color: black;
+    border-style: double;
+    font-size: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
