@@ -51,7 +51,7 @@ button{
     gap: 10px;
 }
 
-.buttons {
+.buttons, .addOp, .subOp, .multOp, .divOp, .equalOp, .divOp, .clearOp {
     width: 80px;
     height: 80px;
     border-color: black;

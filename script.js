@@ -2,7 +2,6 @@ const dis = document.querySelector("#display-screen");
 let displayValue = "";
 
 function add(x, y){
-    x = displayValue;
     return parseInt(x + y);
 }
 
@@ -35,100 +34,100 @@ function operate(op, x, y){
 
 function displayNum(){
     let dv = "";
-    document.querySelectorAll(".buttons").forEach(item => {
-        item.addEventListener('click', () => {
-            if(item.firstChild.nodeValue === "1"){
-                displayValue = displayValue + '1';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "2"){
-                displayValue = displayValue + '2';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "3"){
-                displayValue = displayValue + '3';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "4"){
-                displayValue = displayValue + '4';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "5"){
-                displayValue = displayValue + '5';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "6"){
-                displayValue = displayValue + '6';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "7"){
-                displayValue = displayValue + '7';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "8"){
-                displayValue = displayValue + '8';
-                dis.innerHTML = displayValue;
-            }
-            if(item.firstChild.nodeValue === "9"){
-                displayValue = displayValue + '9';
-                dis.innerHTML = displayValue;            }
-            if(item.firstChild.nodeValue === "0"){
-                displayValue = displayValue + '0';
-                dis.innerHTML = displayValue;
-            }
-            console.log(displayValue);
+    document.querySelectorAll(".buttons").forEach(buttons => {
+        buttons.addEventListener('click', () => {
+            dv = buttons.firstChild.nodeValue;
+            displayValue = displayValue + dv;
+            displayVal(displayValue);
         });
     });
-    return dv;
 }
 
-function operators(){
+function displayVal(value, oper){
+    dis.innerHTML = value;
+    console.log(value);
+    return value;
+}
+
+const addBtn = document.querySelector(".addOp");
+const subBtn = document.querySelector(".subOp");
+const multBtn = document.querySelector(".multOP");
+const divBtn = document.querySelector(".divOp");
+const equalBtn = document.querySelector(".equalOp");
+const clearBtn = document.querySelector(".clearOp");
+
+function addOperator(){
     let oper = "";
-    document.querySelectorAll("#op").forEach(item => {
-        item.addEventListener('click', () => {
-            if(item.firstChild.nodeValue === "+"){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "+";
-                add(displayValue, displayValue)
-            }
-            if(item.firstChild.nodeValue === "-"){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "-";
-            }
-            if(item.firstChild.nodeValue === "x"){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "x";
-            }
-            if(item.firstChild.nodeValue === "/"){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "/";
-            }
-            if(item.firstChild.nodeValue === "="){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "=";
-                setTimeout(function(){
-                    item.style.backgroundColor = 'white';
-                    item.style.color = 'black';
-                }, 500);
-            }
-            if(item.firstChild.nodeValue === "clear"){
-                item.style.backgroundColor = 'black';
-                item.style.color = 'white';
-                oper += "clear";
-                setTimeout(function(){
-                    item.style.backgroundColor = 'white';
-                    item.style.color = 'black';
-                }, 500);
-                clear();
-            }
-            return oper;
-        });
+    addBtn.addEventListener('click', () => {
+        if(addBtn.firstChild.nodeValue === "+"){
+                addBtn.style.backgroundColor = 'black';
+                addBtn.style.color = 'white';
+                oper = oper + "+";
+        }
     });
+    console.log(oper);
+}
+
+function subOperator(){
+    let oper = "";
+    subBtn.addEventListener('click', () => {
+        if(subBtn.firstChild.nodeValue === "+"){
+                subBtn.style.backgroundColor = 'black';
+                subBtn.style.color = 'white';
+                oper += "+";
+        }
+    });
+}
+
+function multOperator(){
+    let oper = "";
+    multBtn.addEventListener('click', () => {
+        if(multBtn.firstChild.nodeValue === "+"){
+                multBtn.style.backgroundColor = 'black';
+                multBtn.style.color = 'white';
+                oper += "+";
+        }
+    });
+}
+
+function divOperator(){
+    let oper = "";
+    divBtn.addEventListener('click', () => {
+        if(divBtn.firstChild.nodeValue === "+"){
+                divBtn.style.backgroundColor = 'black';
+                divBtn.style.color = 'white';
+                oper += "+";
+        }
+    });
+}
+
+function equalOperator(){
+    let oper = "";
+    if(equalBtn.firstChild.nodeValue === "="){
+        equalBtn.style.backgroundColor = 'black';
+        equalBtn.style.color = 'white';
+        oper += "=";
+        setTimeout(function(){
+            equalBtn.style.backgroundColor = 'white';
+            equalBtn.style.color = 'black';
+        }, 500);
+    }
+}
+
+function clearOperator(){
+    let oper = "";
+    if(clearBtn.firstChild.nodeValue === "clear"){
+        clearBtn.addEventListener('click', () => {
+            clearBtn.style.backgroundColor = 'black';
+            clearBtn.style.color = 'white';
+            oper += "clear";
+            setTimeout(function(){
+                clearBtn.style.backgroundColor = 'white';
+                clearBtn.style.color = 'black';
+            }, 500);
+            clear();
+        });
+    }
 }
 
 function clear(){
@@ -137,8 +136,11 @@ function clear(){
 }
 
 function main(){
-    console.log(displayNum());
-    operators();
+    displayNum();
+    addOperator();
+    subOperator();
+    equalOperator();
+    clearOperator();
     operate();
 }
 
