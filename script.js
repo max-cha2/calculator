@@ -1,8 +1,15 @@
 const dis = document.querySelector("#display-screen");
+const addBtn = document.querySelector(".addOp");
+const subBtn = document.querySelector(".subOp");
+const multBtn = document.querySelector(".multOP");
+const divBtn = document.querySelector(".divOp");
+const equalBtn = document.querySelector(".equalOp");
+const clearBtn = document.querySelector(".clearOp");
 let displayValue = "";
+let saveVal = "";
 
 function add(x, y){
-    return parseInt(x + y);
+    console.log(parseInt(x + y));
 }
 
 function subtract(x, y){
@@ -32,29 +39,38 @@ function operate(op, x, y){
     }
 }
 
+function operate2(value){
+    for (let i = 0; i < value.length; i++){
+        if (value[i] === "+"){
+            let first = value.slice(0, i);
+            let second = value.slice(i, i-1);
+            add(first, second);
+        }
+    }
+}
+
 function displayNum(){
     let dv = "";
     document.querySelectorAll(".buttons").forEach(buttons => {
         buttons.addEventListener('click', () => {
             dv = buttons.firstChild.nodeValue;
             displayValue = displayValue + dv;
-            displayVal(displayValue);
+            dis.innerHTML = displayValue;
+            if (buttons.firstChild.nodeValue === "+"){
+                buttons.style.backgroundColor = 'black';
+                buttons.style.color = 'white';
+                operate2(displayValue);
+            }
         });
     });
 }
 
-function displayVal(value, oper){
-    dis.innerHTML = value;
-    console.log(value);
-    return value;
+function saveValue(val){
+    saveVal = val;
+    console.log(val);
+    return saveVal;
 }
 
-const addBtn = document.querySelector(".addOp");
-const subBtn = document.querySelector(".subOp");
-const multBtn = document.querySelector(".multOP");
-const divBtn = document.querySelector(".divOp");
-const equalBtn = document.querySelector(".equalOp");
-const clearBtn = document.querySelector(".clearOp");
 
 function addOperator(){
     let oper = "";
@@ -63,18 +79,20 @@ function addOperator(){
                 addBtn.style.backgroundColor = 'black';
                 addBtn.style.color = 'white';
                 oper = oper + "+";
+                return oper;
         }
     });
-    console.log(oper);
+
 }
 
 function subOperator(){
     let oper = "";
     subBtn.addEventListener('click', () => {
-        if(subBtn.firstChild.nodeValue === "+"){
-                subBtn.style.backgroundColor = 'black';
-                subBtn.style.color = 'white';
-                oper += "+";
+        if(subBtn.firstChild.nodeValue === "-"){
+            subBtn.style.backgroundColor = 'black';
+            subBtn.style.color = 'white';
+            oper += "+";
+            return oper;
         }
     });
 }
@@ -82,10 +100,11 @@ function subOperator(){
 function multOperator(){
     let oper = "";
     multBtn.addEventListener('click', () => {
-        if(multBtn.firstChild.nodeValue === "+"){
-                multBtn.style.backgroundColor = 'black';
-                multBtn.style.color = 'white';
-                oper += "+";
+        if(multBtn.firstChild.nodeValue === "*"){
+            multBtn.style.backgroundColor = 'black';
+            multBtn.style.color = 'white';
+            oper += "+";
+            return oper;
         }
     });
 }
@@ -93,26 +112,23 @@ function multOperator(){
 function divOperator(){
     let oper = "";
     divBtn.addEventListener('click', () => {
-        if(divBtn.firstChild.nodeValue === "+"){
-                divBtn.style.backgroundColor = 'black';
-                divBtn.style.color = 'white';
-                oper += "+";
+        if(divBtn.firstChild.nodeValue === "/"){
+            divBtn.style.backgroundColor = 'black';
+            divBtn.style.color = 'white';
+            oper += "+";
+            return oper;
         }
     });
 }
 
-function equalOperator(){
-    let oper = "";
-    if(equalBtn.firstChild.nodeValue === "="){
-        equalBtn.style.backgroundColor = 'black';
-        equalBtn.style.color = 'white';
-        oper += "=";
-        setTimeout(function(){
-            equalBtn.style.backgroundColor = 'white';
-            equalBtn.style.color = 'black';
-        }, 500);
+
+    equalBtn.onclick() = function(){
+        let i = 0;
+        interval = setInterval(() => {
+            console.log(i++);
+        }, interval);
     }
-}
+
 
 function clearOperator(){
     let oper = "";
@@ -136,12 +152,7 @@ function clear(){
 }
 
 function main(){
-    displayNum();
-    addOperator();
-    subOperator();
     equalOperator();
-    clearOperator();
-    operate();
 }
 
 main();
