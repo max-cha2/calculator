@@ -7,21 +7,31 @@ const equalBtn = document.querySelector(".equalOp");
 const clearBtn = document.querySelector(".clearOp");
 let displayValue = "";
 let saveVal = "";
+let newVal = "";
+let operator = "";
 
 function add(x, y){
-    console.log(parseInt(x + y));
+    const result = Number(x) + Number(y);
+    dis.innerHTML = result;
+    reverseColor(addBtn);
 }
 
 function subtract(x, y){
-    return parseInt(x - y);
+    const result = Number(y) - Number(x);
+    dis.innerHTML = result;
+    reverseColor(subBtn);
 }
 
 function multiply(x, y){
-    return parseInt(x * y);
+    const result = Number(x) * Number(y);
+    dis.innerHTML = result;
+    reverseColor(multBtn);
 }
 
 function divide(x, y){
-    return parseInt(x / y);
+    const result = Number(y) / Number(x);
+    dis.innerHTML = result;
+    reverseColor(divBtn);
 }
 
 function operate(op, x, y){
@@ -31,21 +41,11 @@ function operate(op, x, y){
     if (op === "-"){
         subtract(x, y);   
     }
-    if (op === "*"){
+    if (op === "x"){
         multiply(x, y);
     }
     if (op === "/"){
         divide(x, y);
-    }
-}
-
-function operate2(value){
-    for (let i = 0; i < value.length; i++){
-        if (value[i] === "+"){
-            let first = value.slice(0, i);
-            let second = value.slice(i, i-1);
-            add(first, second);
-        }
     }
 }
 
@@ -56,79 +56,98 @@ function displayNum(){
             dv = buttons.firstChild.nodeValue;
             displayValue = displayValue + dv;
             dis.innerHTML = displayValue;
-            if (buttons.firstChild.nodeValue === "+"){
-                buttons.style.backgroundColor = 'black';
-                buttons.style.color = 'white';
-                operate2(displayValue);
-            }
+            saveValue(displayValue);
+            clearOperator();
         });
     });
 }
 
 function saveValue(val){
     saveVal = val;
-    console.log(val);
     return saveVal;
 }
 
+function newSaveVal(val){
+    newVal = val;
+    return newVal;
+}
+
+function newNum(val){
+    displayValue = "";
+    newSaveVal(val);
+}
+
+function reverseColor(btn){
+    btn.style.backgroundColor = 'white';
+    btn.style.color = 'black';
+}
 
 function addOperator(){
-    let oper = "";
-    addBtn.addEventListener('click', () => {
-        if(addBtn.firstChild.nodeValue === "+"){
-                addBtn.style.backgroundColor = 'black';
-                addBtn.style.color = 'white';
-                oper = oper + "+";
-                return oper;
-        }
-    });
-
+    if(addBtn.firstChild.nodeValue === "+"){
+        addBtn.addEventListener('click', () => {
+            addBtn.style.backgroundColor = 'black';
+            addBtn.style.color = 'white';
+            operator += "+";
+            newNum(saveVal);
+            return operator;
+        });
+    }   
 }
 
 function subOperator(){
-    let oper = "";
-    subBtn.addEventListener('click', () => {
-        if(subBtn.firstChild.nodeValue === "-"){
+    if(subBtn.firstChild.nodeValue === "-"){
+        subBtn.addEventListener('click', () => {
             subBtn.style.backgroundColor = 'black';
             subBtn.style.color = 'white';
-            oper += "+";
-            return oper;
-        }
-    });
+            operator += "-";
+            newNum(saveVal);
+            return operator;
+        });
+    }
+
 }
 
 function multOperator(){
-    let oper = "";
-    multBtn.addEventListener('click', () => {
-        if(multBtn.firstChild.nodeValue === "*"){
+    if(multBtn.firstChild.nodeValue === "x"){
+        multBtn.addEventListener('click', () => {
             multBtn.style.backgroundColor = 'black';
             multBtn.style.color = 'white';
-            oper += "+";
-            return oper;
-        }
-    });
+            operator += "x";
+            newNum(saveVal);
+            return operator;
+        });
+    }
 }
 
 function divOperator(){
-    let oper = "";
-    divBtn.addEventListener('click', () => {
-        if(divBtn.firstChild.nodeValue === "/"){
+    if(divBtn.firstChild.nodeValue === "/"){
+        divBtn.addEventListener('click', () => {
             divBtn.style.backgroundColor = 'black';
             divBtn.style.color = 'white';
-            oper += "+";
-            return oper;
+            operator += "/";
+            newNum(saveVal);
+            return operator;
+        });
+    }
+}
+
+function equalOperator(){
+    addOperator();
+    subOperator();
+    multOperator();
+    divOperator();
+    equalBtn.addEventListener('click', () => {
+        if(equalBtn.firstChild.nodeValue === "="){
+            equalBtn.style.backgroundColor = 'black';
+            equalBtn.style.color = 'white';
+            operate(operator, saveVal, newVal);
+            setTimeout(function(){
+                equalBtn.style.backgroundColor = 'white';
+                equalBtn.style.color = 'black';
+            }, 500);
         }
     });
 }
-
-
-    equalBtn.onclick() = function(){
-        let i = 0;
-        interval = setInterval(() => {
-            console.log(i++);
-        }, interval);
-    }
-
 
 function clearOperator(){
     let oper = "";
@@ -149,9 +168,13 @@ function clearOperator(){
 function clear(){
     dis.innerHTML = "";
     displayValue = "";
+    operator = "";
+    saveVal = "";
+    newVal = "";
 }
 
 function main(){
+    displayNum();
     equalOperator();
 }
 
